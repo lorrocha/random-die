@@ -1,5 +1,16 @@
-var _user$project$Main$renderDie = function (num) {
-	var _p0 = num;
+var _user$project$Main$buttonStyle = function (color) {
+	return _elm_lang$html$Html_Attributes$style(
+		_elm_lang$core$Native_List.fromArray(
+			[
+				{ctor: '_Tuple2', _0: 'backgroundColor', _1: color},
+				{ctor: '_Tuple2', _0: 'height', _1: '30px'},
+				{ctor: '_Tuple2', _0: 'width', _1: '30px'},
+				{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+				{ctor: '_Tuple2', _0: 'margin-left', _1: '5px'}
+			]));
+};
+var _user$project$Main$renderDie = function (model) {
+	var _p0 = model.dieFace;
 	switch (_p0) {
 		case 1:
 			return A2(
@@ -17,7 +28,7 @@ var _user$project$Main$renderDie = function (num) {
 						_elm_lang$svg$Svg$rect,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$svg$Svg_Attributes$fill('#008d46'),
+								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
 								_elm_lang$svg$Svg_Attributes$width('150'),
 								_elm_lang$svg$Svg_Attributes$height('150'),
 								_elm_lang$svg$Svg_Attributes$rx('25')
@@ -54,7 +65,7 @@ var _user$project$Main$renderDie = function (num) {
 						_elm_lang$svg$Svg$rect,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$svg$Svg_Attributes$fill('#008d46'),
+								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
 								_elm_lang$svg$Svg_Attributes$width('150'),
 								_elm_lang$svg$Svg_Attributes$height('150'),
 								_elm_lang$svg$Svg_Attributes$rx('25')
@@ -104,7 +115,7 @@ var _user$project$Main$renderDie = function (num) {
 						_elm_lang$svg$Svg$rect,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$svg$Svg_Attributes$fill('#008d46'),
+								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
 								_elm_lang$svg$Svg_Attributes$width('150'),
 								_elm_lang$svg$Svg_Attributes$height('150'),
 								_elm_lang$svg$Svg_Attributes$rx('25')
@@ -167,7 +178,7 @@ var _user$project$Main$renderDie = function (num) {
 						_elm_lang$svg$Svg$rect,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$svg$Svg_Attributes$fill('#008d46'),
+								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
 								_elm_lang$svg$Svg_Attributes$width('150'),
 								_elm_lang$svg$Svg_Attributes$height('150'),
 								_elm_lang$svg$Svg_Attributes$rx('25')
@@ -243,7 +254,7 @@ var _user$project$Main$renderDie = function (num) {
 						_elm_lang$svg$Svg$rect,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$svg$Svg_Attributes$fill('#008d46'),
+								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
 								_elm_lang$svg$Svg_Attributes$width('150'),
 								_elm_lang$svg$Svg_Attributes$height('150'),
 								_elm_lang$svg$Svg_Attributes$rx('25')
@@ -332,7 +343,7 @@ var _user$project$Main$renderDie = function (num) {
 						_elm_lang$svg$Svg$rect,
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_elm_lang$svg$Svg_Attributes$fill('#008d46'),
+								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
 								_elm_lang$svg$Svg_Attributes$width('150'),
 								_elm_lang$svg$Svg_Attributes$height('150'),
 								_elm_lang$svg$Svg_Attributes$rx('25')
@@ -430,13 +441,14 @@ var _user$project$Main$renderDie = function (num) {
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Main$Model = function (a) {
-	return {dieFace: a};
-};
-var _user$project$Main$init = {
-	ctor: '_Tuple2',
-	_0: _user$project$Main$Model(1),
-	_1: _elm_lang$core$Platform_Cmd$none
+var _user$project$Main$initialModel = {dieFace: 1, dieColor: '#ff0000'};
+var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {dieFace: a, dieColor: b};
+	});
+var _user$project$Main$ChangeColor = function (a) {
+	return {ctor: 'ChangeColor', _0: a};
 };
 var _user$project$Main$NewFace = function (a) {
 	return {ctor: 'NewFace', _0: a};
@@ -444,21 +456,32 @@ var _user$project$Main$NewFace = function (a) {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p1 = msg;
-		if (_p1.ctor === 'Roll') {
-			return {
-				ctor: '_Tuple2',
-				_0: model,
-				_1: A2(
-					_elm_lang$core$Random$generate,
-					_user$project$Main$NewFace,
-					A2(_elm_lang$core$Random$int, 1, 6))
-			};
-		} else {
-			return {
-				ctor: '_Tuple2',
-				_0: _user$project$Main$Model(_p1._0),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
+		switch (_p1.ctor) {
+			case 'Roll':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$core$Random$generate,
+						_user$project$Main$NewFace,
+						A2(_elm_lang$core$Random$int, 1, 6))
+				};
+			case 'NewFace':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{dieFace: _p1._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{dieColor: _p1._0}),
+					_elm_lang$core$Native_List.fromArray(
+						[]));
 		}
 	});
 var _user$project$Main$Roll = {ctor: 'Roll'};
@@ -466,17 +489,62 @@ var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
-			[]),
+			[
+				_elm_lang$html$Html_Attributes$style(
+				_elm_lang$core$Native_List.fromArray(
+					[
+						{ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+						{ctor: '_Tuple2', _0: 'margin-top', _1: '50px'}
+					]))
+			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$h1,
+				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(model.dieFace))
+						_user$project$Main$renderDie(model)
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$svg$Svg_Attributes$class('colors')
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_user$project$Main$buttonStyle('#ff0000'),
+								_elm_lang$html$Html_Events$onClick(
+								_user$project$Main$ChangeColor('#ff0000'))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_user$project$Main$buttonStyle('#3863ff'),
+								_elm_lang$html$Html_Events$onClick(
+								_user$project$Main$ChangeColor('#3863ff'))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						A2(
+						_elm_lang$html$Html$div,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_user$project$Main$buttonStyle('#01a536'),
+								_elm_lang$html$Html_Events$onClick(
+								_user$project$Main$ChangeColor('#01a536'))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[]))
 					])),
 				A2(
 				_elm_lang$html$Html$button,
@@ -487,14 +555,6 @@ var _user$project$Main$view = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html$text('Roll Die')
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_user$project$Main$renderDie(model.dieFace)
 					]))
 			]));
 };

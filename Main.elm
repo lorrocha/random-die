@@ -1,4 +1,5 @@
 import Html exposing (..)
+import Html.Attributes exposing (style)
 import Html.App as Html
 import Html.Events exposing (..)
 import Random
@@ -18,19 +19,24 @@ main =
 -- init
 init : (Model, Cmd Msg)
 init =
-  (Model 1, Cmd.none)
+  (initialModel, Cmd.none)
 
 -- Model
 
 type alias Model =
-  {
-  dieFace : Int
+  { dieFace : Int
+  , dieColor : String
+  }
 
-}
+initialModel : Model
+initialModel =
+  { dieFace = 1
+  , dieColor = "#ff0000"
+  }
 
 -- Update
 
-type Msg = Roll | NewFace Int
+type Msg = Roll | NewFace Int | ChangeColor String
 
 update: Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -38,18 +44,26 @@ update msg model =
     Roll ->
       (model, Random.generate NewFace (Random.int 1 6))
     NewFace newFace ->
-      (Model newFace, Cmd.none)
+      { model | dieFace = newFace } ! []
+    ChangeColor color ->
+      { model | dieColor = color } ! []
 
 -- View
 
 view: Model -> Html Msg
 view model =
-  div []
-    [ h1 [] [ Html.text (toString model.dieFace) ]
-    , button [ Html.Events.onClick Roll ] [ Html.text "Roll Die" ]
-    , div [] [
-      renderDie model.dieFace
+  div
+    [ Html.Attributes.style [("text-align", "center")
+                            ,("margin-top", "50px")]
     ]
+    [ div []
+      [ renderDie model ]
+    , div [class "colors"]
+      [ div [buttonStyle "#ff0000", onClick (ChangeColor "#ff0000")] []
+      , div [buttonStyle "#3863ff", onClick (ChangeColor "#3863ff")] []
+      , div [buttonStyle "#01a536", onClick (ChangeColor "#01a536")] []
+      ]
+    , button [ onClick Roll ] [ Html.text "Roll Die" ]
     ]
 
 -- subscriptions
@@ -59,31 +73,31 @@ subscriptions model =
 
 -- functions
 
-renderDie : Int -> Html.Html msg
-renderDie num =
-  case num of
+renderDie : Model -> Html.Html msg
+renderDie model =
+  case model.dieFace of
     1 ->
       Svg.svg
         [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
         , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] [] ]
     2 ->
       Svg.svg
         [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
         , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] [] ]
     3 ->
       Svg.svg
         [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
         , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] [] ]
     4 ->
       Svg.svg
         [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
         , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
@@ -91,7 +105,7 @@ renderDie num =
     5 ->
       Svg.svg
         [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
         , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
@@ -100,7 +114,7 @@ renderDie num =
     6 ->
       Svg.svg
         [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
         , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "30", y "60", width "25", height "25", rx "55"] []
         , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
@@ -109,3 +123,13 @@ renderDie num =
         , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
     _ ->
       Svg.svg [] []
+
+buttonStyle : String -> Html.Attribute msg
+buttonStyle color =
+  Html.Attributes.style
+    [ ("backgroundColor", color)
+    , ("height", "30px")
+    , ("width", "30px")
+    , ("display", "inline-block")
+    , ("margin-left", "5px")
+    ]
