@@ -6,6 +6,7 @@ import Svg exposing (..)
 import Svg.Attributes exposing (..)
 
 
+
 main =
   Html.program
     { init = init
@@ -47,10 +48,7 @@ view model =
     [ h1 [] [ Html.text (toString model.dieFace) ]
     , button [ Html.Events.onClick Roll ] [ Html.text "Roll Die" ]
     , div [] [
-      Svg.svg [ x "170", y "170", width "150", height "150"]
-      [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
-      , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
-      ]
+      renderDie model.dieFace
     ]
     ]
 
@@ -60,3 +58,54 @@ subscriptions model =
   Sub.none
 
 -- functions
+
+renderDie : Int -> Html.Html msg
+renderDie num =
+  case num of
+    1 ->
+      Svg.svg
+        [ x "170", y "170", width "150", height "150"]
+        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] [] ]
+    2 ->
+      Svg.svg
+        [ x "170", y "170", width "150", height "150"]
+        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] [] ]
+    3 ->
+      Svg.svg
+        [ x "170", y "170", width "150", height "150"]
+        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] [] ]
+    4 ->
+      Svg.svg
+        [ x "170", y "170", width "150", height "150"]
+        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
+    5 ->
+      Svg.svg
+        [ x "170", y "170", width "150", height "150"]
+        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
+    6 ->
+      Svg.svg
+        [ x "170", y "170", width "150", height "150"]
+        [ rect [ fill "#008d46", width "150", height "150", rx "25"] []
+        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "30", y "60", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "60", width "25", height "25", rx "55"] []
+        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
+    _ ->
+      Svg.svg [] []
