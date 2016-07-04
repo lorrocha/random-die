@@ -9,425 +9,141 @@ var _user$project$Main$buttonStyle = function (color) {
 				{ctor: '_Tuple2', _0: 'margin-left', _1: '5px'}
 			]));
 };
-var _user$project$Main$renderDie = function (model) {
-	var _p0 = model.dieFace;
+var _user$project$Main$svgStyle = _elm_lang$core$Native_List.fromArray(
+	[
+		_elm_lang$svg$Svg_Attributes$x('170'),
+		_elm_lang$svg$Svg_Attributes$y('170'),
+		_elm_lang$svg$Svg_Attributes$width('150'),
+		_elm_lang$svg$Svg_Attributes$height('150')
+	]);
+var _user$project$Main$dieBase = function (color) {
+	return A2(
+		_elm_lang$svg$Svg$rect,
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$svg$Svg_Attributes$fill(color),
+				_elm_lang$svg$Svg_Attributes$width('150'),
+				_elm_lang$svg$Svg_Attributes$height('150'),
+				_elm_lang$svg$Svg_Attributes$rx('25')
+			]),
+		_elm_lang$core$Native_List.fromArray(
+			[]));
+};
+var _user$project$Main$transformHorizontal = function (horizontal) {
+	var _p0 = horizontal;
 	switch (_p0) {
+		case 'left':
+			return '30';
+		case 'center':
+			return '60';
+		case 'right':
+			return '90';
+		default:
+			return '0';
+	}
+};
+var _user$project$Main$transformVertical = function (vertical) {
+	var _p1 = vertical;
+	switch (_p1) {
+		case 'top':
+			return '30';
+		case 'middle':
+			return '60';
+		case 'bottom':
+			return '90';
+		default:
+			return '0';
+	}
+};
+var _user$project$Main$pip = F2(
+	function (vertical, horizontal) {
+		return A2(
+			_elm_lang$svg$Svg$rect,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$svg$Svg_Attributes$fill('#181818'),
+					_elm_lang$svg$Svg_Attributes$x(
+					_user$project$Main$transformHorizontal(horizontal)),
+					_elm_lang$svg$Svg_Attributes$y(
+					_user$project$Main$transformVertical(vertical)),
+					_elm_lang$svg$Svg_Attributes$width('25'),
+					_elm_lang$svg$Svg_Attributes$height('25'),
+					_elm_lang$svg$Svg_Attributes$rx('55')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[]));
+	});
+var _user$project$Main$renderDie = function (model) {
+	var _p2 = model.dieFace;
+	switch (_p2) {
 		case 1:
 			return A2(
 				_elm_lang$svg$Svg$svg,
+				_user$project$Main$svgStyle,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$x('170'),
-						_elm_lang$svg$Svg_Attributes$y('170'),
-						_elm_lang$svg$Svg_Attributes$width('150'),
-						_elm_lang$svg$Svg_Attributes$height('150')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
-								_elm_lang$svg$Svg_Attributes$width('150'),
-								_elm_lang$svg$Svg_Attributes$height('150'),
-								_elm_lang$svg$Svg_Attributes$rx('25')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('60'),
-								_elm_lang$svg$Svg_Attributes$y('60'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
+						_user$project$Main$dieBase(model.dieColor),
+						A2(_user$project$Main$pip, 'middle', 'center')
 					]));
 		case 2:
 			return A2(
 				_elm_lang$svg$Svg$svg,
+				_user$project$Main$svgStyle,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$x('170'),
-						_elm_lang$svg$Svg_Attributes$y('170'),
-						_elm_lang$svg$Svg_Attributes$width('150'),
-						_elm_lang$svg$Svg_Attributes$height('150')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
-								_elm_lang$svg$Svg_Attributes$width('150'),
-								_elm_lang$svg$Svg_Attributes$height('150'),
-								_elm_lang$svg$Svg_Attributes$rx('25')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
+						_user$project$Main$dieBase(model.dieColor),
+						A2(_user$project$Main$pip, 'top', 'left'),
+						A2(_user$project$Main$pip, 'bottom', 'right')
 					]));
 		case 3:
 			return A2(
 				_elm_lang$svg$Svg$svg,
+				_user$project$Main$svgStyle,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$x('170'),
-						_elm_lang$svg$Svg_Attributes$y('170'),
-						_elm_lang$svg$Svg_Attributes$width('150'),
-						_elm_lang$svg$Svg_Attributes$height('150')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
-								_elm_lang$svg$Svg_Attributes$width('150'),
-								_elm_lang$svg$Svg_Attributes$height('150'),
-								_elm_lang$svg$Svg_Attributes$rx('25')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('60'),
-								_elm_lang$svg$Svg_Attributes$y('60'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
+						_user$project$Main$dieBase(model.dieColor),
+						A2(_user$project$Main$pip, 'top', 'left'),
+						A2(_user$project$Main$pip, 'middle', 'center'),
+						A2(_user$project$Main$pip, 'bottom', 'right')
 					]));
 		case 4:
 			return A2(
 				_elm_lang$svg$Svg$svg,
+				_user$project$Main$svgStyle,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$x('170'),
-						_elm_lang$svg$Svg_Attributes$y('170'),
-						_elm_lang$svg$Svg_Attributes$width('150'),
-						_elm_lang$svg$Svg_Attributes$height('150')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
-								_elm_lang$svg$Svg_Attributes$width('150'),
-								_elm_lang$svg$Svg_Attributes$height('150'),
-								_elm_lang$svg$Svg_Attributes$rx('25')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
+						_user$project$Main$dieBase(model.dieColor),
+						A2(_user$project$Main$pip, 'top', 'left'),
+						A2(_user$project$Main$pip, 'bottom', 'left'),
+						A2(_user$project$Main$pip, 'top', 'right'),
+						A2(_user$project$Main$pip, 'bottom', 'right')
 					]));
 		case 5:
 			return A2(
 				_elm_lang$svg$Svg$svg,
+				_user$project$Main$svgStyle,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$x('170'),
-						_elm_lang$svg$Svg_Attributes$y('170'),
-						_elm_lang$svg$Svg_Attributes$width('150'),
-						_elm_lang$svg$Svg_Attributes$height('150')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
-								_elm_lang$svg$Svg_Attributes$width('150'),
-								_elm_lang$svg$Svg_Attributes$height('150'),
-								_elm_lang$svg$Svg_Attributes$rx('25')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('60'),
-								_elm_lang$svg$Svg_Attributes$y('60'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
+						_user$project$Main$dieBase(model.dieColor),
+						A2(_user$project$Main$pip, 'top', 'left'),
+						A2(_user$project$Main$pip, 'bottom', 'left'),
+						A2(_user$project$Main$pip, 'middle', 'center'),
+						A2(_user$project$Main$pip, 'top', 'right'),
+						A2(_user$project$Main$pip, 'bottom', 'right')
 					]));
 		case 6:
 			return A2(
 				_elm_lang$svg$Svg$svg,
+				_user$project$Main$svgStyle,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$x('170'),
-						_elm_lang$svg$Svg_Attributes$y('170'),
-						_elm_lang$svg$Svg_Attributes$width('150'),
-						_elm_lang$svg$Svg_Attributes$height('150')
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill(model.dieColor),
-								_elm_lang$svg$Svg_Attributes$width('150'),
-								_elm_lang$svg$Svg_Attributes$height('150'),
-								_elm_lang$svg$Svg_Attributes$rx('25')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('60'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('30'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('30'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('60'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$svg$Svg$rect,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$svg$Svg_Attributes$fill('#181818'),
-								_elm_lang$svg$Svg_Attributes$x('90'),
-								_elm_lang$svg$Svg_Attributes$y('90'),
-								_elm_lang$svg$Svg_Attributes$width('25'),
-								_elm_lang$svg$Svg_Attributes$height('25'),
-								_elm_lang$svg$Svg_Attributes$rx('55')
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[]))
+						_user$project$Main$dieBase(model.dieColor),
+						A2(_user$project$Main$pip, 'top', 'left'),
+						A2(_user$project$Main$pip, 'middle', 'left'),
+						A2(_user$project$Main$pip, 'bottom', 'left'),
+						A2(_user$project$Main$pip, 'top', 'right'),
+						A2(_user$project$Main$pip, 'middle', 'right'),
+						A2(_user$project$Main$pip, 'bottom', 'right')
 					]));
 		default:
 			return A2(
@@ -455,8 +171,8 @@ var _user$project$Main$NewFace = function (a) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p3 = msg;
+		switch (_p3.ctor) {
 			case 'Roll':
 				return {
 					ctor: '_Tuple2',
@@ -471,7 +187,7 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{dieFace: _p1._0}),
+						{dieFace: _p3._0}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 			default:
@@ -479,7 +195,7 @@ var _user$project$Main$update = F2(
 					_elm_lang$core$Platform_Cmd_ops['!'],
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{dieColor: _p1._0}),
+						{dieColor: _p3._0}),
 					_elm_lang$core$Native_List.fromArray(
 						[]));
 		}
@@ -511,7 +227,7 @@ var _user$project$Main$view = function (model) {
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$svg$Svg_Attributes$class('colors')
+						_elm_lang$html$Html_Attributes$class('colors')
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[

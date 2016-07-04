@@ -1,10 +1,10 @@
 import Html exposing (..)
-import Html.Attributes exposing (style)
+import Html.Attributes exposing (style, class)
 import Html.App as Html
 import Html.Events exposing (..)
 import Random
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
+import Svg exposing (svg, rect)
+import Svg.Attributes exposing (x, y, width, height, fill, rx)
 
 
 
@@ -53,8 +53,10 @@ update msg model =
 view: Model -> Html Msg
 view model =
   div
-    [ Html.Attributes.style [("text-align", "center")
-                            ,("margin-top", "50px")]
+    [ style
+      [ ("text-align", "center")
+      , ("margin-top", "50px")
+      ]
     ]
     [ div []
       [ renderDie model ]
@@ -78,55 +80,105 @@ renderDie model =
   case model.dieFace of
     1 ->
       Svg.svg
-        [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
-        , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] [] ]
+        svgStyle
+        [ dieBase model.dieColor
+        , pip "middle" "center"
+        ]
     2 ->
       Svg.svg
-        [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
-        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] [] ]
+        svgStyle
+        [ dieBase model.dieColor
+        , pip "top" "left"
+        , pip "bottom" "right"
+        ]
     3 ->
       Svg.svg
-        [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
-        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] [] ]
+        svgStyle
+        [ dieBase model.dieColor
+        , pip "top" "left"
+        , pip "middle" "center"
+        , pip "bottom" "right"
+        ]
     4 ->
       Svg.svg
-        [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
-        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
+        svgStyle
+        [ dieBase model.dieColor
+        , pip "top" "left"
+        , pip "bottom" "left"
+        , pip "top" "right"
+        , pip "bottom" "right"
+        ]
     5 ->
       Svg.svg
-        [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
-        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "60", y "60", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
+        svgStyle
+        [ dieBase model.dieColor
+        , pip "top" "left"
+        , pip "bottom" "left"
+        , pip "middle" "center"
+        , pip "top" "right"
+        , pip "bottom" "right"
+        ]
     6 ->
       Svg.svg
-        [ x "170", y "170", width "150", height "150"]
-        [ rect [ fill model.dieColor, width "150", height "150", rx "25"] []
-        , rect [ fill "#181818", x "30", y "30", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "30", y "60", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "30", y "90", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "30", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "60", width "25", height "25", rx "55"] []
-        , rect [ fill "#181818", x "90", y "90", width "25", height "25", rx "55"] [] ]
+        svgStyle
+        [ dieBase model.dieColor
+        , pip "top" "left"
+        , pip "middle" "left"
+        , pip "bottom" "left"
+        , pip "top" "right"
+        , pip "middle" "right"
+        , pip "bottom" "right"
+        ]
     _ ->
       Svg.svg [] []
 
+transformVertical : String -> String
+transformVertical vertical =
+  case vertical of
+    "top" ->
+      "30"
+    "middle" ->
+      "60"
+    "bottom" ->
+      "90"
+    _ ->
+      "0"
+
+transformHorizontal : String -> String
+transformHorizontal horizontal =
+  case horizontal of
+    "left" ->
+      "30"
+    "center" ->
+      "60"
+    "right" ->
+      "90"
+    _ ->
+      "0"
+
+dieBase : String -> Html.Html msg
+dieBase color =
+  rect [ fill color, width "150", height "150", rx "25"] []
+
+pip : String -> String -> Html.Html msg
+pip vertical horizontal =
+  rect
+    [ fill "#181818"
+    , x (transformHorizontal horizontal)
+    , y (transformVertical vertical)
+    , width "25"
+    , height "25"
+    , rx "55"
+    ]
+    []
+
+svgStyle : List (Svg.Attribute a)
+svgStyle =
+  [ x "170", y "170", width "150", height "150" ]
+
 buttonStyle : String -> Html.Attribute msg
 buttonStyle color =
-  Html.Attributes.style
+  style
     [ ("backgroundColor", color)
     , ("height", "30px")
     , ("width", "30px")
